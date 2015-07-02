@@ -52,10 +52,16 @@
         sourceImage.src = images[imageIndex++ % images.length];
       }
 
+      function toRGB(color) {
+        return "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+      }
+
       function updateColor() {
         var color = colorThief.getColor(sourceImage);
         var wrapper = document.getElementsByClassName("wrapper")[0];
-        wrapper.style["background-color"] = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+        wrapper.style["background-color"] = toRGB(color);
+        var colors = colorThief.getPalette(sourceImage, 3);
+        wrapper.style["background-image"] = "linear-gradient(45deg, " + toRGB(colors[0]) + ", " + toRGB(colors[1]) + ", " + toRGB(colors[0]) + ")";
       }
     </script>
   </body>
