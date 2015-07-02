@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ambient-background-color</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+      }
+      .wrapper {
+        background-color: #000;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      .wrapper img {
+        max-width: 90%;
+        max-height: 90%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <img src="//:0"/>
+    </div>
+    <script src="color-thief.min.js"></script>
+    <script>
+      var images = [
+        "1680p-55733c722eb12a800ee3cfff.jpg",
+        "1680p-5470019c0624ea442b18c153.jpg"
+      ];
+      var imageIndex = 0;
+
+      var sourceImage = document.getElementsByTagName("img")[0];
+      var colorThief = new ColorThief();
+
+      sourceImage.onclick = nextImage;
+      sourceImage.addEventListener("load", updateColor);
+
+      nextImage();
+
+      function nextImage() {
+        sourceImage.src = images[imageIndex++ % images.length];
+      }
+
+      function updateColor() {
+        var color = colorThief.getColor(sourceImage);
+        var wrapper = document.getElementsByClassName("wrapper")[0];
+        wrapper.style["background-color"] = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+      }
+    </script>
+  </body>
+</html>
